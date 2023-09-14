@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
+    int number = 0;
 
     System.out.println("== 자바 텍스트 게시판 ==");
     System.out.println("== 프로그램 시작 ==");
@@ -21,7 +22,8 @@ public class Main {
         System.out.printf("내용 : ");
         String content = sc.nextLine();
 
-        System.out.println("1번 게시물이 등록되었습니다.");
+        number++;
+        System.out.printf("%d번 게시물이 등록되었습니다.\n", number);
       }
 
       else if (cmd.equals("exit")) {
