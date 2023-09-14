@@ -24,10 +24,7 @@ public class Main {
 
         number++;
 
-        Article articles = new Article();
-        articles.id = number;
-        articles.title = title;
-        articles.content = content;
+        Article articles = new Article(number, title, content);
 
         System.out.printf("%d번 게시물이 등록되었습니다.\n", number);
         System.out.println(articles);
@@ -51,6 +48,13 @@ class Article{
   int id;
   String title;
   String content;
+
+  Article(int id, String title, String content){
+    this.id = id;
+    this.title = title;
+    this.content = content;
+  }
+
   @Override
   public String toString(){
     return String.format("{id : %d, title : \"%s\", content : \"%s\"}", id, title, content);
