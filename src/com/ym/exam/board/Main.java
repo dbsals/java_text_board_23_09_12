@@ -51,6 +51,8 @@ class Article{
   int id;
   String title;
   String content;
-
-
+  @Override
+  public String toString(){
+    return String.format("{id : %d, title : \"%s\", content : \"%s\"}", id, title, content);
+  }
 }
