@@ -23,7 +23,14 @@ public class Main {
         String content = sc.nextLine();
 
         number++;
+
+        Article articles = new Article();
+        articles.id = number;
+        articles.title = title;
+        articles.content = content;
+
         System.out.printf("%d번 게시물이 등록되었습니다.\n", number);
+        System.out.println(articles);
       }
 
       else if (cmd.equals("exit")) {
@@ -38,4 +45,12 @@ public class Main {
 
     sc.close();
   }
+}
+
+class Article{
+  int id;
+  String title;
+  String content;
+
+
 }
