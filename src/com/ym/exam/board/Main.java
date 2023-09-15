@@ -1,11 +1,14 @@
 package com.ym.exam.board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    Article lastarticle = null;
+    List<Article> articles = new ArrayList<>();
+
     int num = 0;
 
     System.out.println("== 환영합니다 ==");
@@ -24,11 +27,9 @@ public class Main {
 
         num++;
 
-        Article articles = new Article(num, title, content);
+        articles.add(new Article(num, title, content));
         System.out.println("게시물이 추가 되었습니다.");
-        System.out.println(articles);
 
-        lastarticle = articles;
       }
 
       else if(cmd.equals("/usr/article/detail")){
@@ -38,9 +39,22 @@ public class Main {
         }
 
         System.out.println("== 게시물 상세보기 ==");
-        System.out.printf("번호 : %d\n", lastarticle.id);
-        System.out.printf("제목 : %s\n", lastarticle.title);
-        System.out.printf("내용 : %s\n", lastarticle.content);
+        System.out.printf("번호 : %d\n", articles.get(num - 1).id);
+        System.out.printf("제목 : %s\n", articles.get(num - 1).title);
+        System.out.printf("내용 : %s\n", articles.get(num - 1).content);
+      }
+
+      else if(cmd.equals("/usr/article/list")){
+        if(num == 0){
+          System.out.println("게시물이 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.println("== 게시물 리스트 ==");
+        System.out.println("번호   / 제목");
+        for(Article article : articles){
+          System.out.printf("%d / %s\n", article.id, article.title);
+        }
       }
 
       else if(cmd.equals("exit")){
