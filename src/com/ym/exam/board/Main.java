@@ -13,7 +13,7 @@ public class Main {
 
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    int num = 0;
+    int num = 3;
 
     List<Article> articles = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class Main {
       }
 
       else if(cmd.equals("/usr/article/detail")){
-        if(num == 0){
+        if(articles.size() == 0){
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
@@ -53,15 +53,15 @@ public class Main {
       }
 
       else if(cmd.equals("/usr/article/list")){
-        if(num == 0){
+        if(articles.size() == 0){
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
 
         System.out.println("== 게시물 리스트 ==");
         System.out.println("번호   / 제목");
-        for(Article article : articles){
-          System.out.printf("%d / %s\n", article.id, article.title);
+        for(int i = articles.size() - 1; i >= 0; i--){
+          System.out.printf("%d / %s\n", articles.get(i).id, articles.get(i).title);
         }
       }
 
