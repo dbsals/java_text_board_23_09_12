@@ -1,28 +1,11 @@
-/*
--[O] 환영메세지 출력
--[O] 고객으로부터 명령어 입력받기
-   -[O] 스캐너 객체라도 하나 만들어보기
-   -[O] 받은 명령어 출력하기
--[O] exit 명령어 처리
-   -[O] exit 입력받으면 종료라고 출력하기
-   -[O] exit 입력받을 때 까지 계속 실행
--[O] /usr/article/write 명령어 입력처리
-   -[O] 시작문구라고 출력
-   -[O]  제목과 내용이라도 입력받기
-   -[O]  생성된 게시물 번호 출력
-   -[O]  생성될 때마다 게시물 번호가 증가
-   -[O]  생성된 게시물을 객체에 담기
-   -[O]  Article 객체 생성하기
-   -[O]  Article 클래스 생성하기
--[O] toString 메서드 오버라이드 해서 생성된 게시물 객체 쉽게 보기
--[O] 생성자 도입
-*/
+package com.ym.exam.board;
 
 import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
+    Article lastarticle = null;
     int num = 0;
 
     System.out.println("== 환영합니다 ==");
@@ -44,6 +27,20 @@ public class Main {
         Article articles = new Article(num, title, content);
         System.out.println("게시물이 추가 되었습니다.");
         System.out.println(articles);
+
+        lastarticle = articles;
+      }
+
+      else if(cmd.equals("/usr/article/detail")){
+        if(num == 0){
+          System.out.println("게시물이 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.println("== 게시물 상세보기 ==");
+        System.out.printf("번호 : %d\n", lastarticle.id);
+        System.out.printf("제목 : %s\n", lastarticle.title);
+        System.out.printf("내용 : %s\n", lastarticle.content);
       }
 
       else if(cmd.equals("exit")){
