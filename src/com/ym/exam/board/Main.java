@@ -19,6 +19,10 @@ public class Main {
 
     makeTestDate(articles);
 
+    if(articles.size() > 0){
+      num = articles.get(articles.size() - 1).id;
+    }
+
     System.out.println("== 환영합니다 ==");
 
     while(true){
@@ -36,7 +40,7 @@ public class Main {
         num++;
 
         articles.add(new Article(num, title, content));
-        System.out.println("게시물이 추가 되었습니다.");
+        System.out.printf("%d번째 게시물이 추가 되었습니다.\n", num);
 
       }
 
