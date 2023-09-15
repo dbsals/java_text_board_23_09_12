@@ -5,11 +5,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+  static void makeTestDate(List<Article> articles){
+    articles.add(new Article(1, "제목1", "내용1"));
+    articles.add(new Article(2, "제목2", "내용2"));
+    articles.add(new Article(3, "제목3", "내용3"));
+  }
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
+    int num = 0;
+
     List<Article> articles = new ArrayList<>();
 
-    int num = 0;
+    makeTestDate(articles);
 
     System.out.println("== 환영합니다 ==");
 
