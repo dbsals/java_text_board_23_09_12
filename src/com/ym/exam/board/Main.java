@@ -8,15 +8,13 @@ public class Main {
 
     String[] queryStringbits = queryString.split("&");
 
-    //향상된 for문
-    /*
     for(String bit : queryStringbits){
-      System.out.println(bit);
-    }
-    */
+      String[] bitBits = bit.split("=");
+      String paramName = bitBits[0];
+      String paramValue = bitBits[1];
 
-    //stream
-    Arrays.stream(queryStringbits)
-        .forEach(System.out::println);
+      System.out.printf("%s : %s\n", paramName, paramValue);
+    }
+
   }
 }
