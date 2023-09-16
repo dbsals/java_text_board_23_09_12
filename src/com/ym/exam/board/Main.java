@@ -1,101 +1,22 @@
 package com.ym.exam.board;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
-  static void makeTestDate(List<Article> articles){
-    articles.add(new Article(1, "제목1", "내용1"));
-    articles.add(new Article(2, "제목2", "내용2"));
-    articles.add(new Article(3, "제목3", "내용3"));
-  }
-
   public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    int num = 3;
+    String queryString = "a=1&b=2&c=3";
 
-    List<Article> articles = new ArrayList<>();
+    String[] queryStringbits = queryString.split("&");
 
-    makeTestDate(articles);
-
-    if(articles.size() > 0){
-      num = articles.get(articles.size() - 1).id;
+    //향상된 for문
+    /*
+    for(String bit : queryStringbits){
+      System.out.println(bit);
     }
+    */
 
-    System.out.println("== 환영합니다 ==");
-
-    while(true){
-      System.out.printf("명령어) ");
-      String cmd = sc.nextLine();
-
-      if(cmd.equals("/usr/article/write")){
-        System.out.println("== 게시물 등록 ==");
-        System.out.printf("title : ");
-        String title = sc.nextLine();
-
-        System.out.printf("content : ");
-        String content = sc.nextLine();
-
-        num++;
-
-        articles.add(new Article(num, title, content));
-        System.out.printf("%d번째 게시물이 추가 되었습니다.\n", num);
-
-      }
-
-      else if(cmd.equals("/usr/article/detail")){
-        if(articles.size() == 0){
-          System.out.println("게시물이 존재하지 않습니다.");
-          continue;
-        }
-
-        System.out.println("== 게시물 상세보기 ==");
-        System.out.printf("번호 : %d\n", articles.get(num - 1).id);
-        System.out.printf("제목 : %s\n", articles.get(num - 1).title);
-        System.out.printf("내용 : %s\n", articles.get(num - 1).content);
-      }
-
-      else if(cmd.equals("/usr/article/list")){
-        if(articles.size() == 0){
-          System.out.println("게시물이 존재하지 않습니다.");
-          continue;
-        }
-
-        System.out.println("== 게시물 리스트 ==");
-        System.out.println("번호   / 제목");
-        for(int i = articles.size() - 1; i >= 0; i--){
-          System.out.printf("%d / %s\n", articles.get(i).id, articles.get(i).title);
-        }
-      }
-
-      else if(cmd.equals("exit")){
-        System.out.println("프로그램을 종료합니다.");
-        break;
-      }
-
-      else{
-        System.out.println("올바른 명령어를 입력해주세요.");
-      }
-    }
-
-    sc.close();;
-  }
-}
-
-class Article{
-  int id;
-  String title;
-  String content;
-
-  Article(int id, String title, String content){
-    this.id = id;
-    this.title = title;
-    this.content = content;
-  }
-
-  @Override
-  public String toString(){
-    return String.format("{id : %d, title : \"%s\", content : \"%s\"}", id, title, content);
+    //stream
+    Arrays.stream(queryStringbits)
+        .forEach(System.out::println);
   }
 }
