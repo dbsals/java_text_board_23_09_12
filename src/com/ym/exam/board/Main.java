@@ -4,19 +4,41 @@ import java.util.*;
 
 public class Main {
   public static void main(String[] args) {
-    Map<String, String> params = Util.getParamForomUrl("/usr/article/list?page=2&searchKeyword=안녕");
+    Rq rq = new Rq("/usr/article/list?page=1&searchKeyword=안녕? 어서와");
+
+    Map<String, String> params = rq.getParams();
     System.out.println(params);
 
-    String urlPath = Util.getPathFromUrl("/usr/article/list");
+    params = rq.getParams();
+    System.out.println(params);
+
+    String urlPath = rq.getUrlPath();
     System.out.println(urlPath);
 
-    urlPath = Util.getPathFromUrl("/usr/article/list?page=2&searchKeyword=안녕");
+    urlPath = rq.getUrlPath();
     System.out.println(urlPath);
   }
 }
 
+class Rq {
+  String url;
+
+  public Rq(String url){
+    this.url = url;
+  }
+
+  public Map<String, String> getParams(){
+    return Util.getParamsForomUrl(url);
+  }
+
+  public String getUrlPath(){
+    return Util.getPathFromUrl(url);
+  }
+
+}
+
 class Util {
-  static Map<String, String> getParamForomUrl(String url) {
+  static Map<String, String> getParamsForomUrl(String url) {
     Map<String, String> Params = new HashMap<>();
 
     String[] urlBits = url.split("\\?", 2);
