@@ -5,10 +5,13 @@ import java.util.*;
 public class Main {
   public static void main(String[] args) {
     Map<String, String> params = Util.getParamForomUrl("/usr/article/list?page=2&searchKeyword=안녕");
-
     System.out.println(params);
-    System.out.println(params.get("page"));
-    System.out.println(params.get("searchKeyword"));
+
+    String urlPath = Util.getPathFromUrl("/usr/article/list");
+    System.out.println(urlPath);
+
+    urlPath = Util.getPathFromUrl("/usr/article/list?page=2&searchKeyword=안녕");
+    System.out.println(urlPath);
   }
 }
 
@@ -34,5 +37,9 @@ class Util {
     }
 
     return Params;
+  }
+
+  static String getPathFromUrl(String url) {
+    return url.split("\\?", 2)[0];
   }
 }
