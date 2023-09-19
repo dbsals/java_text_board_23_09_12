@@ -4,28 +4,32 @@ import java.util.*;
 
 public class Main {
   public static void main(String[] args) {
-    String queryString = "id=5&title=aaa&content=bbbb&writerName=홍길동";
+    String queryString1 = "id=5&title=aaa&content=bbbb&writerName=홍길동";
+    String queryString2 = "id=13&name=James&age=30";
+    String queryString3 = "id=13&name=James";
 
+    Map<String, String> params1 = Util.getParams(queryString1);
+    Map<String, String> params2 = Util.getParams(queryString2);
+    Map<String, String> params3 = Util.getParams(queryString3);
+
+    System.out.println(params1);
+    System.out.println(params2);
+    System.out.println(params3);
+
+  }
+}
+
+class Util {
+  static Map<String, String> getParams(String queryStr) {
     Map<String, String> params = new HashMap<>();
 
-    String[] queryStringbits = queryString.split("&");
+    String[] queryStrBits = queryStr.split("&");
 
-    for(String bit : queryStringbits){
-      String[] bitBits = bit.split("=");
-      params.put(bitBits[0], bitBits[1]);
+    for(String bit : queryStrBits) {
+      String[] bits = bit.split("=");
 
+      params.put(bits[0], bits[1]);
     }
-    System.out.println("==원하는 것 하나하나 가져와서 사용");
-    System.out.printf("id : %d\n", Integer.parseInt(params.get("id")));
-    System.out.printf("title : %s\n", params.get("title"));
-    System.out.printf("content : %s\n", params.get("content"));
-    System.out.printf("writeName : %s\n", params.get("writerName"));
-
-    System.out.println("== 반복문으로 전체 출력 ==");
-    for(String paramName : params.keySet()){
-      String paramValue = params.get(paramName);
-      System.out.printf("%s : %s\n", paramName, paramValue);
-
-    }
+    return params;
   }
 }
