@@ -54,14 +54,27 @@ public class Main {
         System.out.println("번호 / 제목");
         System.out.println("-------------------");
 
-        for(int i = articles.size() - 1; i >= 0; i--) {
-          Article article = articles.get(i);
-          System.out.printf("%d / %s\n", article.id, article.title);
+        boolean orderByDesc = true;
+
+        if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
+          orderByDesc = false;
         }
+
+        if(orderByDesc) {
+          for(int i = articles.size() - 1; i >= 0; i--) {
+            Article article = articles.get(i);
+            System.out.printf("%d / %s\n", article.id, article.title);
+          }
+        }
+        else {
+          for(Article article : articles) {
+            System.out.printf("%d / %s\n", article.id, article.title);
+          }
+        }
+
 
       }
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
-<<<<<<< HEAD
         if(params.containsKey("id") == false) {
           System.out.println("id를 입력해주세요.");
           continue;
@@ -71,19 +84,18 @@ public class Main {
 
         try {
           id = Integer.parseInt(params.get("id"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
           System.out.println("id를 정수 형태로 입력해주세요.");
           continue;
         }
-=======
-        int id = Integer.parseInt(params.get("id"));
->>>>>>> 3d1649c00369429c2363f3df1c48e4861f8a7813
 
+        // 게시물이 아예 없는 경우
         if(articles.isEmpty()) {
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
 
+        // 내가 입력한 id가 현재 게시물에 수량을 초과한 경우
         if(id > articles.size()) {
           System.out.println("해당 게시물은 존재하지 않습니다.");
           continue;
@@ -99,9 +111,6 @@ public class Main {
       else if(rq.getUrlPath().equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
-      }
-      else {
-        System.out.println("올바른 명령어를 입력해주세요.");
       }
     }
 
