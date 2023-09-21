@@ -28,21 +28,17 @@ class Rq {
   // 수정불가능
   Rq(String url) {
     this.url = url;
+    Params = Util.getParamsFromUrl(url);
+    urlPath = Util.getUrlPathFromUrl(url);
   }
 
   // 수정가능
   public Map<String, String> getParams() {
-    if(Params == null) {
-      Params = Util.getParamsFromUrl(url);
-    }
     return Params;
   }
 
   // 수정가능
   public String getUrlPath() {
-    if(urlPath == null) {
-      urlPath = Util.getUrlPathFromUrl(url);
-    }
     return urlPath;
   }
 }
