@@ -61,6 +61,7 @@ public class Main {
 
       }
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
+<<<<<<< HEAD
         if(params.containsKey("id") == false) {
           System.out.println("id를 입력해주세요.");
           continue;
@@ -74,6 +75,9 @@ public class Main {
           System.out.println("id를 정수 형태로 입력해주세요.");
           continue;
         }
+=======
+        int id = Integer.parseInt(params.get("id"));
+>>>>>>> 3d1649c00369429c2363f3df1c48e4861f8a7813
 
         if(articles.isEmpty()) {
           System.out.println("게시물이 존재하지 않습니다.");
