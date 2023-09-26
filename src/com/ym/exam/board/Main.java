@@ -54,9 +54,7 @@ public class Main {
         System.out.println("번호 / 제목");
         System.out.println("-------------------");
 
-
-
-
+        List<Article> sortedArticle = articles;
         boolean orderByIdDesc = true;
 
         if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
@@ -64,21 +62,10 @@ public class Main {
         }
 
         if(orderByIdDesc) {
-          for(int i = articles.size() - 1; i >= 0; i--) {
-            Article article = articles.get(i);
-            System.out.printf("%d / %s\n", article.id, article.title);
-          }
+          sortedArticle = Util.reverseList(sortedArticle);
         }
-        else {
-          articles.stream()
-              .forEach(article -> System.out.printf("%d / %s\n", article.id, article.title));
-          /*
-          for(Article article : articles) {
-            System.out.printf("%d / %s\n", article.id, article.title);
-          }
-           */
-        }
-
+        sortedArticle.stream()
+            .forEach(article -> System.out.printf("%d / %s\n", article.id, article.title));
 
       }
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
