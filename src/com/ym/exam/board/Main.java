@@ -54,7 +54,24 @@ public class Main {
         System.out.println("번호 / 제목");
         System.out.println("-------------------");
 
-        List<Article> sortedArticle = articles;
+        List<Article> filteredArticle = articles;
+
+        if(params.containsKey("searchKeyword")) {
+          String searchKeyword = params.get("searchKeyword");
+
+          filteredArticle = new ArrayList<>();
+
+          for(Article article : articles) {
+            boolean matched = article.title.contains(searchKeyword) || article.content.contains(searchKeyword);
+
+            if(matched) {
+              filteredArticle.add(article);
+            }
+          }
+        }
+
+        List<Article> sortedArticles = filteredArticle;
+
         boolean orderByIdDesc = true;
 
         if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
@@ -62,9 +79,9 @@ public class Main {
         }
 
         if(orderByIdDesc) {
-          sortedArticle = Util.reverseList(sortedArticle);
+          sortedArticles = Util.reverseList(sortedArticles);
         }
-        sortedArticle.stream()
+        sortedArticles.stream()
             .forEach(article -> System.out.printf("%d / %s\n", article.id, article.title));
 
       }
