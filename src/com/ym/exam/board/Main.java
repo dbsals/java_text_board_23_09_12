@@ -189,4 +189,13 @@ class Util {
   static String getUrlPathFromUrl(String url) {
     return url.split("\\?", 2)[0];
   }
+
+  public static<T> List reverseList(List<T> list) {
+    List<T> reverse = new ArrayList<>(list.size());
+
+    for(int i = list.size() - 1; i >= 0; i--) {
+      reverse.add(list.get(i));
+    }
+    return reverse;
+  }
 }
