@@ -43,6 +43,10 @@ public class Main {
       else if(rq.getUrlPath().equals("/usr/article/detail")) {
         actionUsrArticleDetail(rq, articles);
       }
+      else if(rq.getUrlPath().equals("/usr/article/modify")) {
+        actionUsrAtticleModify(sc, rq, articles);
+      }
+
       else if(rq.getUrlPath().equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
@@ -144,6 +148,38 @@ public class Main {
     System.out.printf("번호 : %d\n", article.id);
     System.out.printf("제목 : %s\n", article.title);
     System.out.printf("내용 : %s\n", article.content);
+  }
+
+  private static void actionUsrAtticleModify(Scanner sc, Rq rq, List<Article> articles) {
+    Map<String, String> params = rq.getParams();
+
+    if(params.containsKey("id") == false) {
+      System.out.println("id를 입력해주세요.");
+      return;
+    }
+
+    int id = 0;
+
+    try {
+      id = Integer.parseInt(params.get("id"));
+    } catch (NumberFormatException e) {
+      System.out.println("id를 정수 형태로 입력해주세요.");
+      return;
+    }
+
+    if(articles.isEmpty() || id > articles.size()) {
+      System.out.println("게시물이 존재하지 않습니다.");
+      return;
+    }
+
+    Article article = articles.get(id - 1);
+
+    System.out.printf("새 제목 : ");
+    article.title = sc.nextLine();
+    System.out.printf("새 내용 :");
+    article.content = sc.nextLine();
+
+    System.out.printf("%d번 게시물이 수정되었습니다.\n", article.id);
   }
 
 }
