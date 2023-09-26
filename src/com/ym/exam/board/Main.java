@@ -5,9 +5,9 @@ import java.util.*;
 public class Main {
 
   static void makeTestDate(List<Article> articles) {
-    articles.add(new Article(1, "제목1", "내용1"));
-    articles.add(new Article(2, "제목2", "내용2"));
-    articles.add(new Article(3, "제목3", "내용3"));
+    for(int i = 1; i <= 100; i++) {
+      articles.add(new Article(i, "제목" + i, "내용" + i));
+    }
   }
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
@@ -54,22 +54,29 @@ public class Main {
         System.out.println("번호 / 제목");
         System.out.println("-------------------");
 
-        boolean orderByDesc = true;
+
+
+
+        boolean orderByIdDesc = true;
 
         if(params.containsKey("orderBy") && params.get("orderBy").equals("idAsc")) {
-          orderByDesc = false;
+          orderByIdDesc = false;
         }
 
-        if(orderByDesc) {
+        if(orderByIdDesc) {
           for(int i = articles.size() - 1; i >= 0; i--) {
             Article article = articles.get(i);
             System.out.printf("%d / %s\n", article.id, article.title);
           }
         }
         else {
+          articles.stream()
+              .forEach(article -> System.out.printf("%d / %s\n", article.id, article.title));
+          /*
           for(Article article : articles) {
             System.out.printf("%d / %s\n", article.id, article.title);
           }
+           */
         }
 
 
