@@ -25,7 +25,7 @@ public class UsrMemberController {
 
   void makeTestDate() {
     // 테스트 게시물을 100개로 늘림.
-    for(int i = 1; i <= 5; i++ ) {
+    for(int i = 1; i <= 3; i++ ) {
       members.add(new Member(i, "user" + i, "user" + i, "홍길동" + i));
     }
   }
@@ -38,7 +38,7 @@ public class UsrMemberController {
     System.out.printf("로그인 패스워드 : ");
     String loginPw = Container.sc.nextLine();
 
-    System.out.printf("로그인 패스워드 : ");
+    System.out.printf("로그인 패스워드 확인 : ");
     String loginPwConfirm = Container.sc.nextLine();
 
     if(loginPw.equals(loginPwConfirm) == false) {
@@ -58,4 +58,50 @@ public class UsrMemberController {
     System.out.printf("\"%s\"님 회원가입을 환영합니다.\n", member.name);
 
   }
+
+  public void actionLogin(Rq rq) {
+    System.out.println("== 로그인 ==");
+    System.out.printf("로그인 아이디 : ");
+    String loginId = Container.sc.nextLine();
+
+    if(loginId.trim().length() == 0) {
+      System.out.println("로그인 아이디를 입력해주세요.");
+      return;
+    }
+
+    Member member = getMemberLoginId(loginId);
+
+    if(member == null) {
+      System.out.println("해당 아이디는 존재하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("로그인 패스워드 : ");
+    String loginPw = Container.sc.nextLine();
+
+    if(loginPw.trim().length() == 0) {
+      System.out.println("로그인 패스워드를 입력해주세요.");
+      return;
+    }
+
+    if(member.loginPw.equals(loginPw) == false) {
+      System.out.println("로그인 패스워드가 일치하지 않습니다.");
+      System.out.println("다시 확인 후 입력해주세요.");
+      return;
+    }
+
+    System.out.printf("\"%s\"님 환영합니다.\n", member.name);
+  }
+
+  private Member getMemberLoginId(String loginId) {
+    for(Member member : members) {
+      if(member.loginId.equals(loginId)) {
+        return member;
+      }
+    }
+
+    return null;
+  }
+
+
 }
