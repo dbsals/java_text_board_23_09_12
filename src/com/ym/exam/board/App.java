@@ -33,6 +33,9 @@ public class App {
       else if (rq.getUrlPath().equals("/usr/article/modify")) {
         Container.usrArticleController.actionModify(rq);
       }
+      else if (rq.getUrlPath().equals("/usr/member/join")) {
+        Container.usrMemberController.actionJoin(rq);
+      }
       else if (rq.getUrlPath().equals("/usr/article/delete")) {
         Container.usrArticleController.actionDelete(rq);
       }
