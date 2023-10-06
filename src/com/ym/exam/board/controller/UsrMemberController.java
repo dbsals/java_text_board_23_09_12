@@ -90,6 +90,8 @@ public class UsrMemberController {
       return;
     }
 
+    rq.setSessionAttr("loginedMember", member);
+
     System.out.printf("\"%s\"님 환영합니다.\n", member.name);
   }
 

@@ -1,5 +1,7 @@
 package com.ym.exam.board;
 
+import com.ym.exam.board.container.Container;
+
 import java.util.Map;
 
 public class Rq {
@@ -40,5 +42,10 @@ public class Rq {
     catch (NumberFormatException e) {
       return defaultValue;
     }
+  }
+
+  public void setSessionAttr(String key, Member value) {
+    Session session = Container.getSession();
+    session.setAttribute(key, value);
   }
 }
