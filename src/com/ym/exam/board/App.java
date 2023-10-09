@@ -1,15 +1,15 @@
 package com.ym.exam.board;
 
 import com.ym.exam.board.container.Container;
+import com.ym.exam.board.session.Session;
+import com.ym.exam.board.vo.Member;
+import com.ym.exam.board.vo.Rq;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App {
   public void run() {
-    Scanner sc = Container.sc;
+    Scanner sc = Container.getSc();
     Session session = Container.getSession();
 
     System.out.println("== 자바 텍스트 게시판 ==");
@@ -21,7 +21,7 @@ public class App {
       String promptName = "명령";
 
       if(loginedMember != null) {
-        promptName = loginedMember.loginId;
+        promptName = loginedMember.getLoginId();
       }
 
       System.out.printf("%s) ", promptName);
@@ -29,33 +29,31 @@ public class App {
 
       Rq rq = new Rq(cmd);
 
-
-      if (rq.getUrlPath().equals("/usr/article/write")) {
+      if(rq.getUrlPath().equals("/usr/article/write")) {
         Container.usrArticleController.actionWrite(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/article/list")) {
+      else if(rq.getUrlPath().equals("/usr/article/list")) {
         Container.usrArticleController.showList(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/article/detail")) {
+      else if(rq.getUrlPath().equals("/usr/article/detail")) {
         Container.usrArticleController.showDetail(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/article/modify")) {
+      else if(rq.getUrlPath().equals("/usr/article/modify")) {
         Container.usrArticleController.actionModify(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/article/delete")) {
+      else if(rq.getUrlPath().equals("/usr/article/delete")) {
         Container.usrArticleController.actionDelete(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/member/join")) {
+      else if(rq.getUrlPath().equals("/usr/member/join")) {
         Container.usrMemberController.actionJoin(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/member/login")) {
+      else if(rq.getUrlPath().equals("/usr/member/login")) {
         Container.usrMemberController.actionLogin(rq);
       }
-      else if (rq.getUrlPath().equals("/usr/member/logout")) {
+      else if(rq.getUrlPath().equals("/usr/member/logout")) {
         Container.usrMemberController.actionLogout(rq);
       }
-
-      else if (rq.getUrlPath().equals("exit")) {
+      else if(rq.getUrlPath().equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
         break;
       }

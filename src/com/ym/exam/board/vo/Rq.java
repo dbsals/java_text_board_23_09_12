@@ -1,15 +1,17 @@
-package com.ym.exam.board;
+package com.ym.exam.board.vo;
 
+import com.ym.exam.board.session.Session;
 import com.ym.exam.board.container.Container;
+import com.ym.exam.board.util.Util;
 
 import java.util.Map;
 
 public class Rq {
-  String url;
-  Map<String, String> params;
-  String urlPath;
+  public String url;
+  public Map<String, String> params;
+  public String urlPath;
 
-  Rq(String url) {
+  public Rq(String url) {
     this.url = url;
     params = Util.getParamsFromUrl(url);
     urlPath = Util.getUrlPathFromUrl(url);
@@ -24,7 +26,7 @@ public class Rq {
   }
 
   public String getParam(String paramName, String defaultValue) {
-    if(params.containsKey(paramName) == false) {
+    if (params.containsKey(paramName) == false) {
       return defaultValue;
     }
 
@@ -32,14 +34,13 @@ public class Rq {
   }
 
   public int getIntParam(String paramName, int defaultValue) {
-    if(params.containsKey(paramName) == false) {
+    if (params.containsKey(paramName) == false) {
       return defaultValue;
     }
 
     try {
       return Integer.parseInt(params.get(paramName));
-    }
-    catch (NumberFormatException e) {
+    } catch (NumberFormatException e) {
       return defaultValue;
     }
   }

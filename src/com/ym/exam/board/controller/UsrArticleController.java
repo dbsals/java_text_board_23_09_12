@@ -1,13 +1,12 @@
 package com.ym.exam.board.controller;
 
-import com.ym.exam.board.Article;
-import com.ym.exam.board.Rq;
-import com.ym.exam.board.Util;
+import com.ym.exam.board.vo.Article;
+import com.ym.exam.board.vo.Rq;
+import com.ym.exam.board.util.Util;
 import com.ym.exam.board.container.Container;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class UsrArticleController {
   private int articleLastId;
@@ -20,11 +19,11 @@ public class UsrArticleController {
     makeTestDate();
 
     if(articles.size() > 0) {
-      articleLastId = articles.get(articles.size() - 1).id;
+      articleLastId = articles.get(articles.size() - 1).getId();
     }
   }
 
-  void makeTestDate() {
+  public void makeTestDate() {
     // 테스트 게시물을 100개로 늘림.
     for(int i = 1; i <= 100; i++ ) {
       articles.add(new Article(i, "제목" + i, "내용" + i));
@@ -34,10 +33,10 @@ public class UsrArticleController {
   public void actionWrite(Rq rq) {
     System.out.println("== 게시물 등록 ==");
     System.out.printf("제목 : ");
-    String title = Container.sc.nextLine();
+    String title = Container.getSc().nextLine();
 
     System.out.printf("내용 : ");
-    String content = Container.sc.nextLine();
+    String content = Container.getSc().nextLine();
 
     int id = articleLastId + 1;
     articleLastId = id;
@@ -62,11 +61,10 @@ public class UsrArticleController {
 
     if(searchKeyword.length() > 0) {
 
-
       filteredArticles = new ArrayList<>();
 
       for(Article article : articles) {
-        boolean matched = article.title.contains(searchKeyword) || article.content.contains(searchKeyword);
+        boolean matched = article.getTitle().contains(searchKeyword) || article.getContent().contains(searchKeyword);
 
         if(matched) {
           filteredArticles.add(article);
@@ -87,7 +85,7 @@ public class UsrArticleController {
     }
 
     sortedArticles.stream()
-        .forEach(article -> System.out.printf("%d / %s\n", article.id, article.title));
+        .forEach(article -> System.out.printf("%d / %s\n", article.getId(), article.getTitle()));
     // 정렬 로직 끝
   }
 
@@ -101,22 +99,22 @@ public class UsrArticleController {
 
     // 게시물이 아예 없는 경우
     // 내가 입력한 id가 현재 게시물에 수량을 초과한 경우
-    if (articles.isEmpty() || id > articles.size()) {
+    if(articles.isEmpty() || id > articles.size()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
     }
 
     Article article = getArticleById(id);
 
-    if (article == null) {
+    if(article == null) {
       System.out.println("해당 게시물은 존재하지 않습니다.");
       return;
     }
 
     System.out.println("== 게시물 상세보기 ==");
-    System.out.printf("번호 : %d\n", article.id);
-    System.out.printf("제목 : %s\n", article.title);
-    System.out.printf("내용 : %s\n", article.content);
+    System.out.printf("번호 : %d\n", article.getId());
+    System.out.printf("제목 : %s\n", article.getTitle());
+    System.out.printf("내용 : %s\n", article.getContent());
   }
 
   public void actionModify(Rq rq) {
@@ -127,24 +125,24 @@ public class UsrArticleController {
       return;
     }
 
-    if (articles.isEmpty() || id > articles.size()) {
+    if(articles.isEmpty() || id > articles.size()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
     }
 
     Article article = getArticleById(id);
 
-    if (article == null) {
+    if(article == null) {
       System.out.println("해당 게시물은 존재하지 않습니다.");
       return;
     }
 
     System.out.printf("새 제목 : ");
-    article.title = Container.sc.nextLine();
+    article.setTitle(Container.getSc().nextLine());
     System.out.printf("새 내용 : ");
-    article.content = Container.sc.nextLine();
+    article.setContent(Container.getSc().nextLine());
 
-    System.out.printf("%d번 게시물이 수정되었습니다.\n", article.id);
+    System.out.printf("%d번 게시물이 수정되었습니다.\n", article.getId());
   }
 
   public void actionDelete(Rq rq) {
@@ -173,15 +171,12 @@ public class UsrArticleController {
   }
 
   private Article getArticleById(int id) {
-    for (Article article : articles) {
-      if (article.id == id) {
+    for(Article article : articles) {
+      if(article.getId() == id) {
         return article;
       }
     }
 
     return null;
   }
-
-
 }
-

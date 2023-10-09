@@ -1,8 +1,7 @@
 package com.ym.exam.board.controller;
 
-import com.ym.exam.board.Article;
-import com.ym.exam.board.Member;
-import com.ym.exam.board.Rq;
+import com.ym.exam.board.vo.Member;
+import com.ym.exam.board.vo.Rq;
 import com.ym.exam.board.container.Container;
 
 import java.util.ArrayList;
@@ -19,12 +18,11 @@ public class UsrMemberController {
     makeTestDate();
 
     if(members.size() > 0) {
-      memberLastId = members.get(members.size() - 1).id;
+      memberLastId = members.get(members.size() - 1).getId();
     }
   }
 
-  void makeTestDate() {
-    // 테스트 게시물을 100개로 늘림.
+  public void makeTestDate() {
     for(int i = 1; i <= 3; i++ ) {
       members.add(new Member(i, "user" + i, "user" + i, "홍길동" + i));
     }
@@ -33,13 +31,13 @@ public class UsrMemberController {
   public void actionJoin(Rq rq) {
     System.out.println("== 회원 가입 ==");
     System.out.printf("로그인 아이디 : ");
-    String loginId = Container.sc.nextLine();
+    String loginId = Container.getSc().nextLine();
 
     System.out.printf("로그인 패스워드 : ");
-    String loginPw = Container.sc.nextLine();
+    String loginPw = Container.getSc().nextLine();
 
     System.out.printf("로그인 패스워드 확인 : ");
-    String loginPwConfirm = Container.sc.nextLine();
+    String loginPwConfirm = Container.getSc().nextLine();
 
     if(loginPw.equals(loginPwConfirm) == false) {
       System.out.println("비밀번호가 일치하지 않습니다.");
@@ -47,7 +45,7 @@ public class UsrMemberController {
     }
 
     System.out.printf("이름 : ");
-    String name = Container.sc.nextLine();
+    String name = Container.getSc().nextLine();
 
     int id = ++memberLastId;
 
@@ -55,13 +53,13 @@ public class UsrMemberController {
 
     members.add(member);
 
-    System.out.printf("\"%s\"님 회원가입을 환영합니다.\n", member.name);
-
+    System.out.printf("\"%s\"님 회원 가입을 환영합니다.\n", member.getName());
   }
 
   public void actionLogin(Rq rq) {
+
     boolean isLogined = rq.hasSessionAttr("loginedMember");
-    if(isLogined) {
+    if (isLogined) {
       System.out.println("이미 로그인 되어 있습니다.");
       System.out.println("로그아웃 후 이용해주세요.");
       return;
@@ -91,7 +89,7 @@ public class UsrMemberController {
       return;
     }
 
-    if(member.loginPw.equals(loginPw) == false) {
+    if(member.getLoginPw().equals(loginPw) == false) {
       System.out.println("로그인 패스워드가 일치하지 않습니다.");
       System.out.println("다시 확인 후 입력해주세요.");
       return;
@@ -99,12 +97,12 @@ public class UsrMemberController {
 
     rq.setSessionAttr("loginedMember", member);
 
-    System.out.printf("\"%s\"님 환영합니다.\n", member.name);
+    System.out.printf("\"%s\"님 환영합니다.\n", member.getName());
   }
 
   private Member getMemberLoginId(String loginId) {
     for(Member member : members) {
-      if(member.loginId.equals(loginId)) {
+      if(member.getLoginId().equals(loginId)) {
         return member;
       }
     }
@@ -115,7 +113,7 @@ public class UsrMemberController {
   public void actionLogout(Rq rq) {
     boolean isLogout = rq.hasSessionAttr("loginedMember");
 
-    if(!isLogout) {
+    if (!isLogout) {
       System.out.println("이미 로그아웃 상태입니다.");
       return;
     }
@@ -123,5 +121,4 @@ public class UsrMemberController {
     rq.removeSessionAttr("loginedMember");
     System.out.println("로그아웃 되었습니다.");
   }
-
 }
