@@ -2,6 +2,8 @@ package com.ym.exam.board.container;
 
 import com.ym.exam.board.controller.UsrArticleController;
 import com.ym.exam.board.controller.UsrMemberController;
+import com.ym.exam.board.interceptor.NeedLoginInterceptor;
+import com.ym.exam.board.interceptor.NeedLogoutInterceptor;
 import com.ym.exam.board.repository.ArticleRepository;
 import com.ym.exam.board.repository.MemberRepository;
 import com.ym.exam.board.service.ArticleService;
@@ -11,21 +13,27 @@ import com.ym.exam.board.session.Session;
 import java.util.Scanner;
 
 public class Container {
-  public static Scanner sc;
-  public static Session session;
+  private static Scanner sc;
+  private static Session session;
 
-  public static ArticleRepository articleRepository;
-  public static ArticleService articleService;
+  private static NeedLoginInterceptor needLoginInterceptor;
+  private static NeedLogoutInterceptor needLogoutInterceptor;
 
-  public static MemberRepository memberRepository;
-  public static MemberService memberService;
+  private static ArticleRepository articleRepository;
+  private static ArticleService articleService;
 
-  public static UsrArticleController usrArticleController;
-  public static UsrMemberController usrMemberController;
+  private static MemberRepository memberRepository;
+  private static MemberService memberService;
+
+  private static UsrArticleController usrArticleController;
+  private static UsrMemberController usrMemberController;
 
   static {
     sc = new Scanner(System.in);
     session = new Session();
+
+    needLoginInterceptor = new NeedLoginInterceptor();
+    needLogoutInterceptor = new NeedLogoutInterceptor();
 
     articleRepository = new ArticleRepository();
     articleService = new ArticleService();
@@ -39,6 +47,14 @@ public class Container {
 
   public static Scanner getSc() {
     return sc;
+  }
+
+  public static NeedLoginInterceptor getNeedLoginInterceptor() {
+    return needLoginInterceptor;
+  }
+
+  public static NeedLogoutInterceptor getNeedLogoutInterceptor() {
+    return needLogoutInterceptor;
   }
 
   public static ArticleRepository getArticleRepository() {
