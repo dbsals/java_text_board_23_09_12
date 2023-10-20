@@ -1,10 +1,12 @@
 package com.ym.exam.board.container;
 
-import com.ym.exam.board.repository.ArticleRepository;
-import com.ym.exam.board.service.ArticleService;
-import com.ym.exam.board.session.Session;
 import com.ym.exam.board.controller.UsrArticleController;
 import com.ym.exam.board.controller.UsrMemberController;
+import com.ym.exam.board.repository.ArticleRepository;
+import com.ym.exam.board.repository.MemberRepository;
+import com.ym.exam.board.service.ArticleService;
+import com.ym.exam.board.service.MemberService;
+import com.ym.exam.board.session.Session;
 
 import java.util.Scanner;
 
@@ -15,6 +17,9 @@ public class Container {
   public static ArticleRepository articleRepository;
   public static ArticleService articleService;
 
+  public static MemberRepository memberRepository;
+  public static MemberService memberService;
+
   public static UsrArticleController usrArticleController;
   public static UsrMemberController usrMemberController;
 
@@ -24,6 +29,9 @@ public class Container {
 
     articleRepository = new ArticleRepository();
     articleService = new ArticleService();
+
+    memberRepository = new MemberRepository();
+    memberService = new MemberService();
 
     usrArticleController = new UsrArticleController();
     usrMemberController = new UsrMemberController();
@@ -39,6 +47,14 @@ public class Container {
 
   public static ArticleService getArticleService() {
     return articleService;
+  }
+
+  public static MemberRepository getMemberRepository() {
+    return memberRepository;
+  }
+
+  public static MemberService getMemberService() {
+    return memberService;
   }
 
   public static UsrArticleController getUsrArticleController() {

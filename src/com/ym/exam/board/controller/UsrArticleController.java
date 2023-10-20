@@ -1,12 +1,10 @@
 package com.ym.exam.board.controller;
 
+import com.ym.exam.board.container.Container;
 import com.ym.exam.board.service.ArticleService;
 import com.ym.exam.board.vo.Article;
 import com.ym.exam.board.vo.Rq;
-import com.ym.exam.board.util.Util;
-import com.ym.exam.board.container.Container;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsrArticleController {
