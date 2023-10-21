@@ -9,6 +9,8 @@ public class MemberService {
 
   public MemberService() {
     memberRepository = Container.getMemberRepository();
+
+    makeTestDate();
   }
 
   public void makeTestDate() {
@@ -26,5 +28,9 @@ public class MemberService {
 
   public Member getMemberLoginId(String loginId) {
     return memberRepository.getMemberLoginId(loginId);
+  }
+
+  public Member getMemberById(int id) {
+    return memberRepository.getMemberById(id);
   }
 }
